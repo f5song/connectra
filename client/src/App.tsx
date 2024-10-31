@@ -1,9 +1,9 @@
 // src/App.tsx
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Chat from './pages/Chat';
-import NotFound from './pages/404';
+import Home from '@/pages/Home';
+import Chat from '@/pages/Chat';
+import NotFound from '@/pages/404';
 
 const App: React.FC = () => {
   return (
