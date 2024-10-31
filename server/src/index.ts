@@ -1,4 +1,4 @@
-// src/index.ts
+// run backend --> npx ts-node src/index.ts
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 
