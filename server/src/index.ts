@@ -1,21 +1,19 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import pool from './db'; 
+import authRoute from '@/router/auth';
+import userRoute from '@/router/user';
+import cors from "cors"
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
+app.use(express.json());
+app.use(cors())
 
-app.get("/", async (req: Request, res: Response) => {
-    try {
-        const result = await pool.query('SELECT * FROM users'); // ทดสอบการดึงข้อมูลจากตาราง users
-        res.send(result.rows);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+app.use("/user", userRoute);
+
+app.use("/auth", authRoute);
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

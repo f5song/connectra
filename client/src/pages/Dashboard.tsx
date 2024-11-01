@@ -1,12 +1,11 @@
-"use client"
-
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Search, Trash2 } from "lucide-react"
+import { UserContext } from "@/context/UserContext"
 
 interface User {
   id: string
@@ -30,6 +29,16 @@ export default function Dashboard() {
   const [searchReports, setSearchReports] = useState("")
   const [showRead, setShowRead] = useState(false)
   const [showUnread, setShowUnread] = useState(false)
+
+  const user = useContext(UserContext)
+  const { userData, isAuthenticated, refreshToken } = useContext(UserContext)
+
+  useEffect(() => {
+    if (isAuthenticated === "true" && !userData) {
+      refreshToken()
+    }
+  }, [isAuthenticated, userData])
+  console.log(user)
 
   const filteredUsers = users.filter(user => 
     user.name.toLowerCase().includes(searchUsers.toLowerCase())
